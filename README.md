@@ -2,7 +2,7 @@
 Hasty is a PHP framework that ships FastRoute, Doctrine and Twig, etc.
 
 # Get Started
-    $ composer create-project antistupid/Hasty-Skeleton <APPNAME>
+    $ composer create-project -s dev antistupid/Hasty-Skeleton <APPNAME>
     $ cd <APPNAME>
     $ php -S 0:8080 -t public/
 
