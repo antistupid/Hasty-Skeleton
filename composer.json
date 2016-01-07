@@ -1,6 +1,6 @@
 {
   "name": "antistupid/Hasty-Skeleton",
-  "description": "skeleton code for Hasty php framework.",
+  "description": "skeleton code for Hasty php framework",
   "keywords": [
     "microframework",
     "rest",
@@ -9,12 +9,19 @@
     "twig",
     "sekeleton"
   ],
+  "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/antistupid/Hasty"
+    }
+  ],
   "homepage": "https://github.com/antistupid/Hasty-Skeleton",
   "license": "MIT",
   "require": {
     "php": ">=5.4.0",
     "antistupid/Hasty": "*"
   },
+  "minimum-stability": "dev",
   "require-dev": {
   },
   "autoload": {
