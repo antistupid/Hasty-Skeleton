@@ -1,0 +1,25 @@
+{
+  "name": "antistupid/Hasty-Skeleton",
+  "description": "skeleton code for Hasty php framework.",
+  "keywords": [
+    "microframework",
+    "rest",
+    "fastrouter",
+    "doctrine",
+    "twig",
+    "sekeleton"
+  ],
+  "homepage": "https://github.com/antistupid/Hasty-Skeleton",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4.0",
+    "antistupid/Hasty": "*"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "": "app"
+    }
+  }
+}

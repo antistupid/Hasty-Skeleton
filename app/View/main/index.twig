@@ -1,0 +1,140 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+
+    {% include "flash.twig" %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Welcome to Hasty</h1>
+
+            <p>
+                Hasty is a simple PHP framework that ships <i>FastRoute, Doctrine and Twig</i>, etc.
+            </p>
+
+            <section>
+                <h2>review your installation</h2>
+
+                <dl class="dl-horizontal">
+                    <dt> your php version</dt>
+                    <dd> {{ phpversion }} </dd>
+                    <dt> your project directory</dt>
+                    <dd> {{ app_root }} </dd>
+                    <dt> web root directory</dt>
+                    <dd> {{ web_root }} </dd>
+                    <dt> installed modules</dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                            {% for i in installed_module %}
+                                <li><i>{{ i.name }} {{ i.version }}</i></li>
+                            {% endfor %}
+                        </ul>
+                    </dd>
+                </dl>
+
+                <p>
+                    You can not sign up for this site yet.
+                    As shown above, Hasty use the Doctrine. So you need to initialize an database with the doctrine CLI commander.
+                </p>
+            </section>
+
+            <section>
+                <h2>generate database</h2>
+
+                <p>Update your database with a pre-made User Entity.</p>
+
+                <pre>$ php hasty orm:schema-tool:update --force --dump-sql
+$ chmod 777 /tmp/db.sqlite3  # for access via web
+</pre>
+
+                <p>
+                    This command syncs <strong>\Model\Entity\User</strong> entity in
+                    <strong>app/Model/Entity/User.php</strong> to a db.sqlite3 file.
+                </p>
+            </section>
+
+            <section>
+                <h2>test authentication</h2>
+
+                <p><a href="/signup">Sign up</a> for this site, login, and return this page.</p>
+
+                <p>Check your database and a record that show your id.</p>
+
+                <pre>$ sqlite3 -header -column /tmp/db.sqlite3 "select * from users;"
+id          username         password                       name
+----------  ---------------  -----------------------------  -----------
+1           &lt;your username&gt;  &lt;your sha512 hashed password&gt;  &lt;your name&gt;</pre>
+            </section>
+
+            <section>
+
+                <h2>make your entry point!</h2>
+
+                <p>
+                    open <strong>/app/Controller/Main.php</strong>
+                </p>
+
+            <pre>namespace Controller;
+
+use Hasty\Controller;
+
+class Main extends Controller
+{
+
+    /**
+     * @route GET /
+     */
+    public function index()
+    {
+        $user = Session::get('user');
+        if (!$user)
+            return $this->redirect('/login');
+
+        return $this->render('main/index.twig', [
+            'name' => $user['name']
+        ]);
+    }
+
+    # ADD A NEW ENTRY POINT!!
+
+    /**
+     * @route GET /newpage
+     */
+    public function newpage() {
+        return $this->render('main/newpage.twig', [
+            'framework' => 'Hasty'
+        ]);
+    }
+}</pre>
+                <p>create <strong>/app/View/main/newpage.twig</strong></p>
+
+            <pre>{% verbatim %}{% extends 'layout.twig' %}
+
+{% block content %}
+    {% include "flash.twig" %}
+    &lt;div class="row"&gt;
+        &lt;div class="col-lg-12"&gt;
+            &lt;h1&gt;this is new page.&lt;/h1&gt;
+            framework is {{ framework }}&lt;br&gt;
+            Go back to &lt;a href="/"&gt;index page&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+{% endblock %}{% endverbatim %}</pre>
+
+                <p>open <a href="http://{{ SERVER.HTTP_HOST }}/newpage">http://{{ SERVER.HTTP_HOST }}/newpage</a></p>
+            </section>
+
+            <section>
+                <h2>reference</h2>
+
+                <ul>
+                    <li>FastRoute</li>
+                    <li>Doctrine</li>
+                    <li>Twig</li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+
+{% endblock %}
